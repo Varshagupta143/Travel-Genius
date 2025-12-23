@@ -1,11 +1,15 @@
 package com.genius.travel_genius.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "address")
 @Getter
 @Setter
-public class Address {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Address extends BaseEntity {
+
     private int houseNo;
     private String streetName;
     private String area;

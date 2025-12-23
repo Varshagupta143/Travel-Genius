@@ -6,19 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Document(collection = "hotel")
+import java.util.List;
+
+@Document(collection = "destination")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Hotel extends BaseEntity{
+public class Destination extends BaseEntity{
 
-    private String hotelName;
-    private StayType stayType;
-    private int starRating;
-    private RoomType roomType;
-    private HotelAmenities hotelAmenities;
-    private Address address;
+    private String destinationName;
+    @DBRef
+    private List<SubDestination> subDestinationList;
+    @DBRef
+    private List<Hotel> hotels;
 }

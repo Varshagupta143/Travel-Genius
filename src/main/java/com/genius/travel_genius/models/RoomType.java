@@ -1,13 +1,17 @@
 package com.genius.travel_genius.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RoomType {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoomType extends BaseEntity{
     private int occupancy;
     private int cost;
-    private Services services;
+    private RoomAmenities roomAmenities;
 
 }

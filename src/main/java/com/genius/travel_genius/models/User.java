@@ -1,18 +1,26 @@
 package com.genius.travel_genius.models;
 
 import lombok.*;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collection = "user")
 @Getter
 @Setter
-@Builder
-public class User {
-
-    private String id;
+@NoArgsConstructor
+@AllArgsConstructor
+public class User extends BaseEntity {
+    @NonNull
     private String name;
-    private Integer mobileNumber;
+    @NonNull
+    @Indexed(unique = true)
+    private Long mobileNumber;
+    @NonNull
+    @Indexed(unique = true)
     private String email;
+    @NonNull
     private String password;
     private Gender gender;
     private MaritalStatus maritalStatus;
