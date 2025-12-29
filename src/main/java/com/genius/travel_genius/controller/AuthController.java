@@ -23,9 +23,5 @@ public class AuthController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email){
-        User user = authService.getUserByEmail(email);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+
 }

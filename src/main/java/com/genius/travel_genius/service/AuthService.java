@@ -26,9 +26,6 @@ public class AuthService {
         return userRepository.save(newUser);
     }
 
-    public User getUserByEmail(String email){
-        log.info("Getting user from Database for email:" + email);
-        return userRepository.getUserByEmail(email);
-    }
+
 
 }

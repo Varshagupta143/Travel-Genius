@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
     public UserDTO toRegistrationDto(User user) {
         if (user == null) return null;
-        return new UserDTO(user.getName(), user.getMobileNumber(), user.getEmail(), user.getPassword());
+        return new UserDTO(user.getName(), user.getMobileNumber(), user.getEmail(), user.getPassword(),
+                user.getGender(), user.getMaritalStatus(), user.getPreferences());
     }
 
     public User toUserEntity(UserDTO dto) {
@@ -18,6 +19,9 @@ public class UserMapper {
         user.setMobileNumber(dto.getMobileNumber());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
+        user.setGender(dto.getGender());
+        user.setMaritalStatus(dto.getMaritalStatus());
+        user.setPreferences(dto.getPreferences());
         return user;
     }
 }

@@ -24,6 +24,6 @@ public class User extends BaseEntity {
     private String password;
     private Gender gender;
     private MaritalStatus maritalStatus;
-    private List<String>  preferences;
+    private List<ActivityType>  preferences;
 
 }
