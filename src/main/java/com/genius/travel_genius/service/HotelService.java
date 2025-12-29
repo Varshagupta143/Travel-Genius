@@ -9,6 +9,9 @@ import com.genius.travel_genius.repository.RoomRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Slf4j
 @Service
 public class HotelService {
@@ -31,5 +34,8 @@ public class HotelService {
         addressRepository.save(hotelDTO.getAddress());
         roomRepository.saveAll(hotelDTO.getRooms());
         return hotelRepository.save(hotel);
+    }
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
     }
 }
