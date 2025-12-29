@@ -1,23 +1,20 @@
-package com.genius.travel_genius.models;
+package com.genius.travel_genius.dto;
 
+import com.genius.travel_genius.models.Hotel;
+import com.genius.travel_genius.models.SubDestination;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection = "destination")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Destination extends BaseEntity{
+@NoArgsConstructor
+public class DestinationDTO {
     private String destinationName;
-    @DBRef
     private List<SubDestination> subDestinations;
-    @DBRef
     private List<Hotel> hotels;
 }

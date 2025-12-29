@@ -18,13 +18,13 @@ public class HotelController {
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
+
     @PostMapping("/add")
     public ResponseEntity<Hotel> addHotel(@RequestBody HotelDTO hotelDTO) {
-
         Hotel savedHotel = hotelService.addHotel(hotelDTO);
-
         return new ResponseEntity<>(savedHotel, HttpStatus.CREATED);
     }
+
     @GetMapping("/all")
     public ResponseEntity<List<Hotel>> getAllHotels() {
         List<Hotel> hotels = hotelService.getAllHotels();

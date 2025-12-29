@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class HotelMapper {
 
+    public HotelDTO toHotelDTO(Hotel hotel){
+        if (hotel == null) return null;
+        return new HotelDTO(hotel.getHotelName(), hotel.getStayType(),hotel.getStarRating(), hotel.getRooms(), hotel.getHotelAmenities(),hotel.getAddress());
+    }
+
     public Hotel toHotelEntity(HotelDTO dto) {
         if (dto == null) return null;
 

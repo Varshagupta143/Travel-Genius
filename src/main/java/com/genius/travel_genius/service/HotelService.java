@@ -35,6 +35,7 @@ public class HotelService {
         roomRepository.saveAll(hotelDTO.getRooms());
         return hotelRepository.save(hotel);
     }
+
     public List<Hotel> getAllHotels() {
         return hotelRepository.findAll();
     }
