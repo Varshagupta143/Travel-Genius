@@ -16,13 +16,18 @@ public class HotelMapper {
         if (dto == null) return null;
 
         Hotel hotel = new Hotel();
-        hotel.setHotelName(dto.getHotelName());
-        hotel.setStayType(dto.getStayType());
-        hotel.setStarRating(dto.getStarRating());
-        hotel.setRooms(dto.getRooms());
-        hotel.setHotelAmenities(dto.getHotelAmenities());
-        hotel.setAddress(dto.getAddress());
-
+        if(dto.getHotelName() != null)
+            hotel.setHotelName(dto.getHotelName());
+        if(dto.getStayType() != null)
+            hotel.setStayType(dto.getStayType());
+        if(dto.getStarRating() != null)
+            hotel.setStarRating(dto.getStarRating());
+        if(dto.getRooms() != null)
+            hotel.setRooms(dto.getRooms());
+        if(dto.getHotelAmenities() != null)
+            hotel.setHotelAmenities(dto.getHotelAmenities());
+        if(dto.getAddress() != null)
+            hotel.setAddress(dto.getAddress());
         return hotel;
     }
 }

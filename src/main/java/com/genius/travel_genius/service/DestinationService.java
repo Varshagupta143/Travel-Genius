@@ -49,4 +49,11 @@ public class DestinationService {
         destination.setHotels(hotels);
         return destinationRepository.save(destination);
     }
+
+    public Destination updateHotelsInDestination(String destinationId, List<Hotel> hotels) {
+
+        Destination destination = destinationRepository.findDestinationById(destinationId);
+        destination.setHotels(hotels);
+        return destinationRepository.save(destination);
+    }
 }

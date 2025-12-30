@@ -39,4 +39,25 @@ public class HotelService {
     public List<Hotel> getAllHotels() {
         return hotelRepository.findAll();
     }
+
+    public Hotel updateHotel(String id, HotelDTO hotelDTO){
+        Hotel hotel = hotelRepository.getHotelById(id);
+        if(hotelDTO.getHotelName() != null)
+            hotel.setHotelName(hotelDTO.getHotelName());
+        if(hotelDTO.getStayType() != null)
+            hotel.setStayType(hotelDTO.getStayType());
+        if(hotelDTO.getStarRating() != null)
+            hotel.setStarRating(hotelDTO.getStarRating());
+        if(hotelDTO.getRooms() != null) {
+            hotel.setRooms(roomRepository.saveAll(hotelDTO.getRooms()));
+        }
+        if(hotelDTO.getHotelAmenities() != null)
+            hotel.setHotelAmenities(hotelDTO.getHotelAmenities());
+        if(hotelDTO.getAddress() != null) {
+            String addressId = hotel.getAddress().getId();
+            addressRepository.removeAddressById(addressId);
+            hotel.setAddress(addressRepository.save(hotelDTO.getAddress()));
+        }
+        return hotelRepository.save(hotel);
+    }
 }

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DestinationRepository extends MongoRepository<Destination,String> {
+    Destination findDestinationById(String destinationId);
 }
+

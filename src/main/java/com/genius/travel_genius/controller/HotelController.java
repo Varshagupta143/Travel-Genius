@@ -31,4 +31,10 @@ public class HotelController {
         return new ResponseEntity<>(hotels, HttpStatus.OK);
     }
 
+    @PatchMapping(path = "/update/{id}")
+    public ResponseEntity<Hotel> updateHotel(@PathVariable String id,@RequestBody HotelDTO hotelDTO){
+        Hotel hotel = hotelService.updateHotel(id,hotelDTO);
+        return new ResponseEntity<>(hotel, HttpStatus.OK);
+    }
+
 }
