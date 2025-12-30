@@ -49,5 +49,4 @@ public class DestinationService {
         destination.setHotels(hotels);
         return destinationRepository.save(destination);
     }
-
 }

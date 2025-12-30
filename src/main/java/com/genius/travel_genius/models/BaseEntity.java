@@ -8,5 +8,5 @@ import org.springframework.data.annotation.Id;
 @Setter
 public abstract class BaseEntity {
     @Id
-    private String Id;
+    private String id;
 }
