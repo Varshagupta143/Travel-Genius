@@ -30,7 +30,4 @@ public class AuthController {
         String result = authService.login(loginDTO);
         return ResponseEntity.ok(result);
     }
-    String ashdflahsdfkjh(){
-        return null;
-    }
 }
