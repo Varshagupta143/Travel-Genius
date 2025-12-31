@@ -56,4 +56,13 @@ public class DestinationService {
         destination.setHotels(hotels);
         return destinationRepository.save(destination);
     }
+    public void deleteDestination(String id) {
+        if (!destinationRepository.existsById(id)) {
+            throw new RuntimeException("Destination not found");
+        }
+        destinationRepository.deleteById(id);
+    }
+    public List<Destination> getAllDestinations() {
+        return destinationRepository.findAll();
+    }
 }

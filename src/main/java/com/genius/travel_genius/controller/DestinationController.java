@@ -4,6 +4,7 @@ import com.genius.travel_genius.dto.DestinationDTO;
 import com.genius.travel_genius.mapper.DestinationMapper;
 import com.genius.travel_genius.models.Destination;
 import com.genius.travel_genius.models.Hotel;
+import com.genius.travel_genius.models.SubDestination;
 import com.genius.travel_genius.service.DestinationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,15 @@ public class DestinationController {
             @RequestBody List<Hotel> hotels) {
         Destination destination = destinationService.updateHotelsInDestination(destinationId, hotels);
         return ResponseEntity.ok(destinationMapper.toDestinationDTO(destination));
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDestination(@PathVariable String id) {
+        destinationService.deleteDestination(id);
+        return ResponseEntity.ok("Destination deleted successfully");
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<Destination>> getAllDestinations() {
+        return ResponseEntity.ok(destinationService.getAllDestinations());
     }
 
 }
