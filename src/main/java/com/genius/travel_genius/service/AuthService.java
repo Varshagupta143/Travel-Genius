@@ -1,5 +1,6 @@
 package com.genius.travel_genius.service;
 
+import com.genius.travel_genius.dto.LoginDTO;
 import com.genius.travel_genius.dto.UserDTO;
 import com.genius.travel_genius.mapper.UserMapper;
 import com.genius.travel_genius.models.User;
@@ -25,8 +26,24 @@ public class AuthService {
         log.info("User mapped and now saving to database");
         return userRepository.save(newUser);
 
-
     }
+    public String login(LoginDTO loginDTO) {
+        log.info("Login attempt for email: {}", loginDTO.getEmail());
+        User user = userRepository.getUserByEmail(loginDTO.getEmail());
+        if (user != null) {
+            if (user.getPassword().equals(loginDTO.getPassword())) {
+                log.info("Login successful for email: {}", loginDTO.getEmail());
+                return "Login successful";
+            } else {
+                log.error("Login failed - wrong password for email: {}", loginDTO.getEmail());
+            return "Login failed - wrong password for email";
+            }
+        } else {
+            log.error("Login failed - email not found: {}", loginDTO.getEmail());
+            return "Login failed - email not found";
+        }
+    }
+
 
 
 

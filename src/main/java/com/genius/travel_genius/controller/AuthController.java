@@ -1,5 +1,6 @@
 package com.genius.travel_genius.controller;
 
+import com.genius.travel_genius.dto.LoginDTO;
 import com.genius.travel_genius.dto.UserDTO;
 import com.genius.travel_genius.models.User;
 import com.genius.travel_genius.service.AuthService;
@@ -23,5 +24,10 @@ public class AuthController {
     public ResponseEntity<User> registerUser(@Valid @RequestBody UserDTO userDTO){
         User user = authService.registerUser(userDTO);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO) {
+        String result = authService.login(loginDTO);
+        return ResponseEntity.ok(result);
     }
 }
