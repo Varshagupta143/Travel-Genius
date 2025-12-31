@@ -24,6 +24,8 @@ public class AuthService {
         User newUser = userMapper.toUserEntity(userDTO);
         log.info("User mapped and now saving to database");
         return userRepository.save(newUser);
+
+
     }
 
 
