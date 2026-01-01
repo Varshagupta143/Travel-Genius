@@ -6,7 +6,6 @@ import com.genius.travel_genius.mapper.UserMapper;
 import com.genius.travel_genius.models.User;
 import com.genius.travel_genius.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +19,25 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(UserDTO userDTO){
+    public User registerUser(UserDTO userDTO) {
         log.info("Mapping User dto to User entity");
         User newUser = userMapper.toUserEntity(userDTO);
         log.info("User mapped and now saving to database");
         return userRepository.save(newUser);
 
     }
+
     public String login(LoginDTO loginDTO) {
+        if (loginDTO.getEmail() != null) {
+            return userLoginWithEmail(loginDTO);
+        } else if (loginDTO.getMobileNumber() != null) {
+            return userLoginWithMobileNumber(loginDTO);
+        }
+        return "Enter either Email or MobileNumber";
+
+    }
+
+    private String userLoginWithEmail(LoginDTO loginDTO) {
         log.info("Login attempt for email: {}", loginDTO.getEmail());
         User user = userRepository.getUserByEmail(loginDTO.getEmail());
         if (user != null) {
@@ -36,15 +46,27 @@ public class AuthService {
                 return "Login successful";
             } else {
                 log.error("Login failed - wrong password for email: {}", loginDTO.getEmail());
-            return "Login failed - wrong password for email";
+                return "Login failed - wrong password for email";
             }
         } else {
             log.error("Login failed - email not found: {}", loginDTO.getEmail());
             return "Login failed - email not found";
         }
     }
-
-
-
-
+    private String userLoginWithMobileNumber(LoginDTO loginDTO) {
+        log.info("Login attempt for MobileNumber: {}", loginDTO.getMobileNumber());
+        User user = userRepository.getUserByMobileNumber(loginDTO.getMobileNumber());
+        if (user != null) {
+            if (user.getPassword().equals(loginDTO.getPassword())) {
+                log.info("Login successful for MobileNUmber: {}", loginDTO.getMobileNumber());
+                return "Login successful";
+            } else {
+                log.error("Login failed - wrong password for MobileNumber: {}", loginDTO.getMobileNumber());
+                return "Login failed - wrong password for MobileNumber";
+            }
+        } else {
+            log.error("Login failed - mobileNumber not found: {}", loginDTO.getMobileNumber());
+            return "Login failed - mobileNumber not found";
+        }
+    }
 }
