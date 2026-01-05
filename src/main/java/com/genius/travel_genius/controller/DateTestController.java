@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class DateTestController {
-    @PostMapping("login")   // using same mapping style
+    @PostMapping("/login")   // using same mapping style
     public ResponseEntity<String> login(@Valid @RequestBody TestDateDTO testDateDTO) {
         String result = "Received date: " + testDateDTO.getDob();
         return ResponseEntity.ok(result);
