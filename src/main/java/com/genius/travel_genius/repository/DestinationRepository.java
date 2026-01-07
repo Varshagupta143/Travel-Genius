@@ -1,11 +1,15 @@
 package com.genius.travel_genius.repository;
 
 import com.genius.travel_genius.models.Destination;
+import com.genius.travel_genius.models.GroupType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface DestinationRepository extends MongoRepository<Destination,String> {
     Destination findDestinationById(String destinationId);
+
 }
 

@@ -1,19 +1,30 @@
 package com.genius.travel_genius.controller;
 
 import com.genius.travel_genius.dto.TestDateDTO;
+import com.genius.travel_genius.models.TestDate;
+import com.genius.travel_genius.service.TestDateService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class DateTestController {
-    @PostMapping("/login")   // using same mapping style
-    public ResponseEntity<String> login(@Valid @RequestBody TestDateDTO testDateDTO) {
-        String result = "Received date: " + testDateDTO.getDob();
-        return ResponseEntity.ok(result);
+    private final TestDateService testDateService;
+    public DateTestController(TestDateService service) {
+        this.testDateService = service;
+    }
+    @PostMapping("/login")
+    public ResponseEntity<TestDate> login(@Valid @RequestBody TestDateDTO testDateDTO) {
+        TestDate savedDate = testDateService.saveDate(testDateDTO);
+
+        return new ResponseEntity<>(savedDate, HttpStatus.OK);
+    }
+    @GetMapping("/dates")
+    public ResponseEntity<List<TestDate>> getAllDates() {
+        return ResponseEntity.ok(testDateService.getAllDates());
     }
 }

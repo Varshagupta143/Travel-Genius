@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TestDateDTO {
-    @NotNull
+    @NotNull(message = "DOB is required")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
 }
