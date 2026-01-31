@@ -19,4 +19,6 @@ public class HotelDTO {
     private List<Room> rooms;
     private List<HotelAmenities> hotelAmenities;
     private Address address;
+
+
 }

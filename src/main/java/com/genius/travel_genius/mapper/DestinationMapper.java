@@ -22,4 +22,5 @@ public class DestinationMapper {
         destination.setHotels(destinationDTO.getHotels());
         return destination;
     }
+
 }

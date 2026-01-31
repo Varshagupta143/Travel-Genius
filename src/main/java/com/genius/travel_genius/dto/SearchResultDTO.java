@@ -1,6 +1,5 @@
 package com.genius.travel_genius.dto;
 
-import com.genius.travel_genius.models.RoomAmenities;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,10 +11,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomDTO {
-    private Integer roomNumber;
-    private Integer occupancy;
-    private Integer cost;
-    private List<RoomAmenities> roomAmenities;
-
+public class SearchResultDTO {
+    private DestinationDTO destination;
+    private List<SubDestinationDTO> subDestinations;
+    private List<ActivityDTO> activities;
+    private List<HotelDTO> hotels;
 }

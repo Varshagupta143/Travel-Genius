@@ -4,22 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-
-@Document(collection = "destination")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Destination extends BaseEntity{
-    private String destinationName;
-    @DBRef
+public class SearchResult {
+    private Destination destination;
     private List<SubDestination> subDestinations;
-    @DBRef
+    private List<Activity> activities;
     private List<Hotel> hotels;
-
-
 }
