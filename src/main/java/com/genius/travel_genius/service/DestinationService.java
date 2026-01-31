@@ -51,10 +51,15 @@ public class DestinationService {
     }
 
     public Destination updateHotelsInDestination(String destinationId, List<Hotel> hotels) {
+        Destination destination = destinationRepository
+                .findById(destinationId)
+                .orElseThrow(() -> new RuntimeException("Destination not found"));
 
-        Destination destination = destinationRepository.findDestinationById(destinationId);
         destination.setHotels(hotels);
         return destinationRepository.save(destination);
+        //Destination destination = destinationRepository.findDestinationById(destinationId);
+       // destination.setHotels(hotels);
+        //return destinationRepository.save(destination);
     }
     public void deleteDestination(String id) {
         if (!destinationRepository.existsById(id)) {

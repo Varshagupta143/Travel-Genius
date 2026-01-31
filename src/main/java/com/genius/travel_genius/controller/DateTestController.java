@@ -20,7 +20,6 @@ public class DateTestController {
     @PostMapping("/login")
     public ResponseEntity<TestDate> login(@Valid @RequestBody TestDateDTO testDateDTO) {
         TestDate savedDate = testDateService.saveDate(testDateDTO);
-
         return new ResponseEntity<>(savedDate, HttpStatus.OK);
     }
     @GetMapping("/dates")

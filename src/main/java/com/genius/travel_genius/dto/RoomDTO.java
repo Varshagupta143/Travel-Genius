@@ -17,4 +17,5 @@ public class RoomDTO {
     private Integer occupancy;
     private Integer cost;
     private List<RoomAmenities> roomAmenities;
+
 }

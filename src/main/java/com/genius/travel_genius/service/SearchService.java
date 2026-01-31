@@ -1,63 +1,65 @@
 package com.genius.travel_genius.service;
 
-import com.genius.travel_genius.dto.SearchInputDTO;
-import com.genius.travel_genius.dto.SearchResultDTO;
-import com.genius.travel_genius.mapper.SearchInputMapper;
-import com.genius.travel_genius.mapper.SearchResultMapper;
+import com.genius.travel_genius.dto.SearchFilterDTO;
+import com.genius.travel_genius.dto.SearchResponseDTO;
+import com.genius.travel_genius.mapper.SearchResponseMapper;
+import com.genius.travel_genius.models.Activity;
 import com.genius.travel_genius.models.Destination;
-import com.genius.travel_genius.models.GroupType;
-import com.genius.travel_genius.models.SearchInput;
-import com.genius.travel_genius.models.SearchResult;
+import com.genius.travel_genius.models.SubDestination;
 import com.genius.travel_genius.repository.DestinationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-        @Service
-        public class SearchService {
-            @Autowired
-            private DestinationRepository destinationRepository;
-            @Autowired
-            private SearchInputMapper searchInputMapper;
-            @Autowired
-            private SearchResultMapper searchResultMapper;
-            public List<SearchResultDTO> search(SearchInputDTO inputDTO) {
 
-                GroupType groupType = inputDTO.getGroupType();
+@Service
+public class SearchService {
 
-                return destinationRepository.findAll().stream()
-                        .filter(dest -> dest.getSubDestinations().stream()
-                                .anyMatch(sub -> sub.getActivities().stream()
-                                        .anyMatch(a -> a.getGroupType() == groupType)
-                                )
-                        )
-                        .map(dest -> buildSearchResult(dest, groupType))
-                        .map(searchResultMapper::toDTO)
-                        .toList();
-            }
-            private SearchResult buildSearchResult(Destination destination, GroupType groupType) {
+    private final DestinationRepository destinationRepository;
+    private final SearchResponseMapper searchResponseMapper;
 
-                SearchResult result = new SearchResult();
-                result.setDestination(destination);
-                  result.setSubDestinations(
-                        destination.getSubDestinations().stream()
-                                .map(sub -> {
-                                    sub.setActivities(
-                                            sub.getActivities().stream()
-                                                    .filter(a -> a.getGroupType() == groupType)
-                                                    .toList()
-                                    );
-                                    return sub;
-                                })
-                                .filter(sub -> !sub.getActivities().isEmpty()) // remove empty subs
-                                .toList()
-                );
-                result.setHotels(destination.getHotels());
-                return result;
+    public SearchService(DestinationRepository destinationRepository,
+                         SearchResponseMapper searchResponseMapper) {
+        this.destinationRepository = destinationRepository;
+        this.searchResponseMapper = searchResponseMapper;
+    }
+
+    public List<SearchResponseDTO> search(SearchFilterDTO filter) {
+
+        List<Destination> destinations =
+                destinationRepository.findByDestinationNameIgnoreCase(filter.getDestinationName());
+
+        List<SearchResponseDTO> result = new ArrayList<>();
+
+        for (Destination destination : destinations) {
+            if (destination == null || destination.getSubDestinations() == null) continue;
+
+            List<String> subNames = new ArrayList<>();
+
+            for (SubDestination sub : destination.getSubDestinations()) {
+                if (matchesFilter(sub, filter)) {
+                    subNames.add(sub.getSubDestinationName());
+                }
             }
 
+            if (subNames.isEmpty()) continue;
+
+            result.add(searchResponseMapper.toDTO(destination, filter, subNames));
         }
 
+        return result;
+    }
 
+    private boolean matchesFilter(SubDestination sub, SearchFilterDTO filter) {
+        if (sub == null || sub.getActivities() == null) return false;
 
+        for (Activity activity : sub.getActivities()) {
+            if (activity.getActivityType() == filter.getActivityType()
+                    && activity.getGroupType() == filter.getGroupType()) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

@@ -1,22 +1,25 @@
 package com.genius.travel_genius.controller;
-import com.genius.travel_genius.dto.SearchInputDTO;
-import com.genius.travel_genius.dto.SearchResultDTO;
+
+import com.genius.travel_genius.dto.SearchFilterDTO;
+import com.genius.travel_genius.dto.SearchResponseDTO;
 import com.genius.travel_genius.service.SearchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+
 @RestController
-@RequestMapping("/api/search")
+@RequestMapping("api/search")
 public class SearchController {
-    @Autowired
-    private SearchService searchService;
+
+    private final SearchService searchService;
+
+    public SearchController(SearchService searchService) {
+        this.searchService = searchService;
+    }
+
     @PostMapping
-    public ResponseEntity<List<SearchResultDTO>> search(
-            @RequestBody SearchInputDTO inputDTO) {
-        return ResponseEntity.ok(searchService.search(inputDTO));
+    public ResponseEntity<List<SearchResponseDTO>> search(@RequestBody SearchFilterDTO filterDTO) {
+        return ResponseEntity.ok(searchService.search(filterDTO));
     }
 }
