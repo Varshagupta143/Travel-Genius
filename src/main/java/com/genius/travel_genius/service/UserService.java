@@ -18,7 +18,9 @@ public class UserService {
 
     public User getUserByEmail(String email){
         log.info("Getting user from Database for email:" + email);
-        return userRepository.getUserByEmail(email);
+        User user = userRepository.getUserByEmail(email);
+        user.setPassword("");
+        return user;
     }
 
     public User updateUser(String email, UserDTO userDTO) {
