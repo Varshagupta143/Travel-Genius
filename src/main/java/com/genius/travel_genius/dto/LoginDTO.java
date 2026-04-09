@@ -22,6 +22,7 @@ public class LoginDTO {
     private String mobileNumber;
     @NotBlank(message = "Password is required")
     private String password;
+
     @AssertTrue(message = "Either email or mobile number must be provided")
     public boolean isEmailOrMobilePresent() {
         return (email != null && !email.isBlank()) ||

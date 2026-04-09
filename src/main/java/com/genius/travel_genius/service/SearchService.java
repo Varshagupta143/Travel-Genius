@@ -30,6 +30,9 @@ public class SearchService {
         List<Destination> destinations =
                 destinationRepository.findByDestinationNameIgnoreCase(filter.getDestinationName());
 
+
+
+
         List<SearchResponseDTO> result = new ArrayList<>();
 
         for (Destination destination : destinations) {
@@ -46,6 +49,7 @@ public class SearchService {
             if (subNames.isEmpty()) continue;
 
             result.add(searchResponseMapper.toDTO(destination, filter, subNames));
+
         }
 
         return result;
